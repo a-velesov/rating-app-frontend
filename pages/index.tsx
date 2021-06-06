@@ -1,15 +1,12 @@
-import {Button} from "../components";
+import {Paragraph} from "../components";
 
 export default function Home(): JSX.Element {
   return (
     <div>
       Hello World
-        <Button arrow="down" appereance="primary">
+        <Paragraph size="l">
             Hi
-        </Button>
-        <Button appereance="ghost">
-            Hi
-        </Button>
+        </Paragraph>
     </div>
   );
 }
