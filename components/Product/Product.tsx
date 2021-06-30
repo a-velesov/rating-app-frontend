@@ -1,14 +1,13 @@
 import {ProductProps} from "./Product.props";
 import styles from './Product.module.css';
-import cn from 'classnames';
 import {Card} from "../Card/Card";
 import {Rating} from "../Rating/Rating";
 import {Tag} from "../Tag/Tag";
 import {Button} from "../Button/Button";
-import {currencyHandler} from "../../helpers";
+import {currencyHandler, decOfReviews} from "../../helpers";
 import {Divider} from "../Divider/Divider";
 
-export const Product = ({product, className, ...props}: ProductProps): JSX.Element => {
+export const Product = ({product}: ProductProps): JSX.Element => {
     return (
         <Card className={styles.product}>
             <div className={styles.logo}><img src={process.env.NEXT_PUBLIC_DOMAIN + product.image} alt={product.title}/>
@@ -23,14 +22,23 @@ export const Product = ({product, className, ...props}: ProductProps): JSX.Eleme
                 <span className={styles.month}>/мес.</span>
             </div>
             <div className={styles.rating}><Rating rating={product.reviewAvg ?? product.initialRating}/></div>
-            <div className={styles.tags}>{product.categories.map(c => <Tag key={c} color='ghost'
-                                                                           className={styles.category}>{c}</Tag>)}</div>
+            <div className={styles.tags}>{product.categories.map(c =>
+                <Tag key={c} color='ghost' className={styles.category}>{c}</Tag>)}
+            </div>
             <div className={styles.priceTitle}>цена</div>
             <div className={styles.creditTitle}>кредит</div>
-            <div className={styles.rateTitle}>{product.reviewCount} отзывов</div>
+            <div className={styles.rateTitle}>{product.reviewCount} {decOfReviews(product.reviewCount)}</div>
             <Divider className={styles.hr}/>
             <div className={styles.description}>{product.description}</div>
-            <div className={styles.feature}></div>
+            <div className={styles.feature}>
+                {product.characteristics.map(c => (
+                    <div className={styles.characteristics} key={c.name}>
+                   <span className={styles.characteristicsName}>{c.name}</span>
+                   <span className={styles.characteristicsDots}/>
+                        <span>{c.value}</span>
+                    </div>
+                ))}
+            </div>
             <div className={styles.advBlock}>
                 {product.advantages && (
                     <div className={styles.advantages}>
