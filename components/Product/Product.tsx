@@ -6,11 +6,17 @@ import {Tag} from "../Tag/Tag";
 import {Button} from "../Button/Button";
 import {currencyHandler, decOfReviews} from "../../helpers";
 import {Divider} from "../Divider/Divider";
+import Image from "next/image";
 
 export const Product = ({product}: ProductProps): JSX.Element => {
     return (
         <Card className={styles.product}>
-            <div className={styles.logo}><img src={process.env.NEXT_PUBLIC_DOMAIN + product.image} alt={product.title}/>
+            <div className={styles.logo}>
+                <Image
+                    width={70}
+                    height={70}
+                    src={`${process.env.NEXT_PUBLIC_DOMAIN}${product.image}`}
+                    alt={product.title} />
             </div>
             <div className={styles.title}>{product.title}</div>
             <div className={styles.price}>
